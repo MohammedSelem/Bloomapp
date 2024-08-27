@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bloom</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'IBM Plex Sans', sans-serif;
+            background-color: #e3f2dc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            background-color: #f2f2f2;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+            width: 400px;
+            max-width: 100%;
+            text-align: center;
+            transition: box-shadow 0.3s, transform 0.3s;
+        }
+
+        .container:hover {
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+            transform: scale(1.02);
+        }
+
+        h1 {
+            margin-bottom: 24px;
+            color: #263238;
+            font-size: 26px;
+            font-weight: 600;
+        }
+
+        #bloomlogo {
+            width: 350px;
+        }
+
+        #teamlogo {display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 35%;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #455a64;
+            text-align: left;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="time"],
+        input[type="submit"],
+        select,
+        button,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 16px;
+            border: 1px solid #b0bec5;
+            border-radius: 8px;
+            background-color: #ffffff;
+            font-size: 15px;
+            box-sizing: border-box;
+            transition: border-color 0.3s, background-color 0.3s;
+        }
+
+        input[type="text"]:focus,
+        input[type="password"]:focus,
+        input[type="time"]:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #b3d979;
+            background-color: #e0f2f1;
+        }
+
+        input[type="checkbox"] {
+            margin-right: 10px;
+        }
+
+        input[type="submit"],
+        button {
+            background-color: #b3d979;
+            color: white;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        input[type="submit"]:hover,
+        button:hover {
+            background-color: #A1bf73;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .interests-section,
+        .schedule-section,
+        .extras-section,
+        .register-section,
+        .feedback-section {
+            display: none;
+            text-align: left;
+        }
+
+        .button-group {
+            display: flex;
+            flex-direction: column;
+            margin-top: 20px;
+            position: relative;
+            padding: 0 10px;
+        }
+
+        .button-group button {
+            margin-bottom: 10px;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #b0bec5;
+            font-size: 15px;
+        }
+
+        #next-event {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        #output {
+            margin-top: 20px;
+            font-size: 16px;
+            color: #263238;
+            line-height: 1.5;
+            text-align: left;
+        }
+
+        .event-input {
+            margin-bottom: 20px;
+            border: 1px solid #e0e0e0;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #fafafa;
+        }
+
+        .star-rating {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 16px;
+        }
+
+        .star-rating input {
+            display: none;
+        }
+
+        .star-rating label {
+            font-size: 24px;
+            color: #FFD700;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .star-rating input:checked ~ label {
+            color: #FFD700;
+        }
+
+        .star-rating input:checked ~ label ~ label {
+            color: #C0C0C0;
+        }
+
+        .star-rating label:hover,
+        .star-rating label:hover ~ label {
+            color: #FFD700;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Login Section -->
+        <div id="login-section">
+            <img src="bloomnobg2.png" alt="Bloom" id="bloomlogo">
+            <form id="login-form">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required>
+
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+
+                <input type="submit" value="Login">
+            </form>
+            <p>Don't have an account? <a href="#" onclick="showRegisterSection()">Register here</a></p>
+        </div>
+
+        <!-- Register Section -->
+        <div id="register-section" class="register-section">
+            <h1>Register</h1>
+            <form id="register-form">
+                <label for="reg-username">Username</label>
+                <input type="text" id="reg-username" name="username" required>
+
+                <label for="reg-password">Password</label>
+                <input type="password" id="reg-password" name="password" required>
+
+                <label for="reg-email">Email</label>
+                <input type="text" id="reg-email" name="email" required>
+
+                <input type="submit" value="Register">
+            </form>
+            <p>Already have an account? <a href="#" onclick="showLoginSection()">Login here</a></p>
+        </div>
+
+        <!-- Interests Section -->
+        <div id="interests-section" class="interests-section">
+            <h1>Select Your Interests</h1>
+            <form id="interests-form">
+                <label>
+                    <input type="checkbox" name="interests" value="fashion"> fashion
+                </label>
+                <label>
+                    <input type="checkbox" name="interests" value="hiking"> hiking
+                </label>
+                <label>
+                    <input type="checkbox" name="interests" value="gaming"> gaming
+                </label>
+                <label>
+                    <input type="checkbox" name="interests" value="learning languages"> learning languages
+                </label>
+                <label>
+                    <input type="checkbox" name="interests" value="reading"> reading
+                </label>
+                <label>
+                    <input type="checkbox" name="interests" value="traveling"> traveling
+                </label>
+                <label>
+                    <input type="checkbox" name="interests" value="calligraphy"> calligraphy
+                </label>
+                <label>
+                    <input type="checkbox" name="interests" value="painting"> painting
+                </label>
+                <label>
+                    <input type="checkbox" name="interests" value="cooking"> cooking
+                </label>
+                <label>
+                    <input type="checkbox" name="interests" value="singing"> singing
+                </label>
+                <label>
+                    <input type="checkbox" name="interests" value="sports"> sports
+                </label>
+                <label>
+                    <input type="checkbox" name="interests" value="writing"> writing
+                </label>
+                <label>
+                    <input type="checkbox" name="interests" value="composing"> composing
+                </label>
+
+                <input type="submit" value="Next">
+            </form>
+        </div>
+
+        <!-- Schedule Section -->
+        <div id="schedule-section" class="schedule-section">
+            <h1>Plan Your Schedule</h1>
+            <form id="schedule-form">
+                <div id="event-container">
+                    <!-- Dynamic events will be added here -->
+                </div>
+                <button type="button" id="add-event">Add Event</button>
+                <input type="submit" value="Submit Schedule">
+            </form>
+        </div>
+
+        <!-- Extras Section -->
+        <div id="extras-section" class="extras-section">
+            <h1>Main Page</h1>
+            <div id="next-event">
+                <strong>Next Event:</strong>
+                <span id="next-event-text">No events scheduled.</span>
+            </div>
+            <div class="button-group">
+                <button onclick="showDailyReminders()">Daily Reminders</button>
+                <button onclick="showMotivationalQuote()">Motivational Quote</button>
+                <button onclick="showScheduleSuggestions()">Schedule Suggestions</button>
+                <button onclick="showSubmittedSchedule()">View Schedule</button>
+                <button onclick="showFeedbackSection()">Feedback</button>
+            </div>
+            <div id="output"></div>
+        </div>
+
+        <!-- Feedback Section -->
+        <div id="feedback-section" class="feedback-section">
+            <h1>Feedback</h1>
+            <div class="star-rating">
+                <input type="radio" id="star5" name="rating" value="1">
+                <label for="star5" title="1 star">&#9733;</label>
+                <input type="radio" id="star4" name="rating" value="2">
+                <label for="star4" title="2 stars">&#9733;</label>
+                <input type="radio" id="star3" name="rating" value="3">
+                <label for="star3" title="3 stars">&#9733;</label>
+                <input type="radio" id="star2" name="rating" value="4">
+                <label for="star2" title="4 stars">&#9733;</label>
+                <input type="radio" id="star1" name="rating" value="5">
+                <label for="star1" title="5 stars">&#9733;</label>
+            </div>
+            <label for="feedback-opinion">Your Opinion:</label>
+            <textarea id="feedback-opinion" rows="4" placeholder="Share your feedback here..."></textarea>
+            <button onclick="submitFeedback()">Submit Feedback</button>
+            <p>Developed By: </p>
+            <img src="teamlogo.png" alt="حُماة السَّعادة" id="teamlogo">
+            <button onclick="showExtrasSection()">Back to Main Page</button>
+        </div>
+    </div>
+
+    <script>
+        let schedule = []; // Holds the schedule events
+        let registered = false; // Flag to check registration status
+
+        // Function to add new event input fields
+        function addEvent() {
+            const eventContainer = document.getElementById('event-container');
+            const eventDiv = document.createElement('div');
+            eventDiv.className = 'event-input';
+
+            const eventHTML = `
+                <label for="day">Day:</label>
+                <select name="day" required>
+                    <option value="" disabled selected>Select a day</option>
+                    <option value="Monday">Monday</option>
+                    <option value="Tuesday">Tuesday</option>
+                    <option value="Wednesday">Wednesday</option>
+                    <option value="Thursday">Thursday</option>
+                    <option value="Friday">Friday</option>
+                    <option value="Saturday">Saturday</option>
+                    <option value="Sunday">Sunday</option>
+                </select>
+                <label for="event-name">Event Name:</label>
+                <input type="text" name="event-name" required>
+                <label for="event-time">Time:</label>
+                <input type="time" name="event-time" required>
+            `;
+
+            eventDiv.innerHTML = eventHTML;
+            eventContainer.appendChild(eventDiv);
+        }
+
+        // Initialize first event field on load
+        document.addEventListener('DOMContentLoaded', addEvent);
+
+        // Add new event field on button click
+        document.getElementById('add-event').addEventListener('click', addEvent);
+
+        // Handle login form submission
+        document.getElementById('login-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            if (!registered) {
+                alert("Please register first.");
+                return;
+            }
+            document.getElementById('login-section').style.display = 'none';
+            document.getElementById('interests-section').style.display = 'block';
+        });
+
+        // Handle register form submission
+        document.getElementById('register-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            registered = true; // Update registration status
+            alert("Registration complete! You can now log in.");
+            document.getElementById('register-section').style.display = 'none';
+            document.getElementById('login-section').style.display = 'block';
+        });
+
+        // Handle interests form submission
+        document.getElementById('interests-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            document.getElementById('interests-section').style.display = 'none';
+            document.getElementById('schedule-section').style.display = 'block';
+        });
+
+        // Handle schedule form submission
+        document.getElementById('schedule-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            schedule = [];
+            const eventInputs = document.querySelectorAll('.event-input');
+            eventInputs.forEach(input => {
+                const day = input.querySelector('select[name="day"]').value;
+                const name = input.querySelector('input[name="event-name"]').value;
+                const time = input.querySelector('input[name="event-time"]').value;
+                schedule.push({ day, name, time });
+            });
+            document.getElementById('schedule-section').style.display = 'none';
+            document.getElementById('extras-section').style.display = 'block';
+            updateNextEvent();
+        });
+
+        // Show register section
+        function showRegisterSection() {
+            document.getElementById('login-section').style.display = 'none';
+            document.getElementById('register-section').style.display = 'block';
+        }
+
+        // Show login section
+        function showLoginSection() {
+            document.getElementById('register-section').style.display = 'none';
+            document.getElementById('login-section').style.display = 'block';
+        }
+
+        // Show interests section
+        function showInterestsSection() {
+            document.getElementById('login-section').style.display = 'none';
+            document.getElementById('interests-section').style.display = 'block';
+        }
+
+        // Show schedule section
+        function showScheduleSection() {
+            document.getElementById('interests-section').style.display = 'none';
+            document.getElementById('schedule-section').style.display = 'block';
+        }
+
+        // Show extras section
+        function showExtrasSection() {
+            document.getElementById('feedback-section').style.display = 'none';
+            document.getElementById('extras-section').style.display = 'block';
+        }
+
+        // Show feedback section
+        function showFeedbackSection() {
+            document.getElementById('extras-section').style.display = 'none';
+            document.getElementById('feedback-section').style.display = 'block';
+        }
+
+        // Submit feedback
+        function submitFeedback() {
+            const rating = document.querySelector('input[name="rating"]:checked');
+            const opinion = document.getElementById('feedback-opinion').value;
+            if (!rating) {
+                alert("Please select a rating.");
+                return;
+            }
+            const feedbackRating = rating.value;
+            alert(`Feedback submitted!\nRating: ${feedbackRating} stars\nOpinion: ${opinion}`);
+            // Here you can send the feedback data to the server if needed
+            document.getElementById('feedback-opinion').value = ''; // Clear the text area
+        }
+
+        // Show daily reminders
+        function showDailyReminders() {
+            const reminders = [
+                "Drink a glass of water.",
+                "Take a 5-minute break to stretch.",
+                "Read for 30 minutes.",
+                "Move around to get your blood flowing.",
+                "Breathe deeply for a minute.",
+                "Review your goals for today."
+            ];
+            const output = document.getElementById('output');
+            output.innerHTML = "<strong>Daily Reminders:</strong><br>" + reminders.join("<br>");
+        }
+
+        // Show a random motivational quote
+        function showMotivationalQuote() {
+            const quotes = [
+                "Believe you can and you're halfway there. - Theodore Roosevelt",
+                "Act as if what you do makes a difference. It does. - William James",
+                "Success is not how high you have climbed, but how you make a positive difference to the world. - Roy T. Bennett",
+                "Success is not in what you have, but who you are. - Bo Bennett",
+                "Hardships often prepare ordinary people for an extraordinary destiny. - C.S. Lewis",
+                "The only way to achieve the impossible is to believe it is possible. - Charles Kingsleigh"
+            ];
+            const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+            const output = document.getElementById('output');
+            output.innerHTML = "<strong>Motivational Quote:</strong><br>" + randomQuote;
+        }
+
+        // Show schedule suggestions
+        function showScheduleSuggestions() {
+            const suggestions = [
+                "You have free time today, why not take a walk?",
+                "Consider reading for 30 minutes before bed.",
+                "How about a quick workout session after lunch?",
+                "Try cooking a new recipe during your evening break.",
+                "Plan a short meditation session in the morning.",
+                "Catch up with friends on Saturday evening."
+            ];
+            const output = document.getElementById('output');
+            output.innerHTML = "<strong>Schedule Suggestions:</strong><br>" + suggestions.join("<br>");
+        }
+
+        // Show the submitted schedule
+        function showSubmittedSchedule() {
+            const output = document.getElementById('output');
+            if (schedule.length === 0) {
+                output.innerHTML = "<strong>No events scheduled.</strong>";
+                return;
+            }
+            let scheduleHTML = "<strong>Submitted Schedule:</strong><br>";
+            schedule.forEach((event, index) => {
+                scheduleHTML += `Event ${index + 1}: ${event.day} - ${event.name} at ${event.time}<br>`;
+            });
+            scheduleHTML += '<br><button id="add-more-events">Add More Events</button>';
+            output.innerHTML = scheduleHTML;
+            document.getElementById('add-more-events').addEventListener('click', function() {
+                document.getElementById('extras-section').style.display = 'none';
+                document.getElementById('schedule-section').style.display = 'block';
+            });
+        }
+
+        // Update next event display
+        function updateNextEvent() {
+            const nextEventText = document.getElementById('next-event-text');
+            if (schedule.length === 0) {
+                nextEventText.innerText = 'No events scheduled.';
+                return;
+            }
+            const nextEvent = schedule[0];
+            nextEventText.innerText = `${nextEvent.day} - ${nextEvent.name} at ${nextEvent.time}`;
+        }
+    </script>
+</body>
+</html>
